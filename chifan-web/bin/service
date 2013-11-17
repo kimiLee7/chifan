@@ -1,0 +1,43 @@
+#!/bin/bash
+
+safemkdir(){
+  if [ ! -d $1 ] ; then
+    mkdir -p $1
+  fi
+}
+
+#these values can be define in projectrc
+source env.conf
+
+DATA_HOME=$APP_HOME/data
+TEMP_HOME=$DATA_HOME/tmp
+JETTY_RUN=$TEMP_HOME
+JETTY_ARGS="lib=$JETTY_HOME/lib $APP_HOME/conf/jetty/jetty.xml $APP_HOME/conf/jetty/jetty-requestlog.xml OPTIONS=jsp"
+
+JAVA_OPTIONS="-server -XX:+HeapDumpOnOutOfMemoryError -Xms512M -Xmx512M -XX:PermSize=128M -XX:MaxPermSize=256M"
+
+#JAVA_OPTIONS="-server -Xms2048m -Xmx2048m -XX:NewSize=512m -XX:MaxNewSize=768m -XX:PermSize=128m -XX:MaxPermSize=256m"
+
+TMP=$TEMP_HOME
+TMPDIR=$TEMP_HOME
+
+JAVA_OPTIONS="-Xbootclasspath/a:$APP_HOME/conf/ $JAVA_OPTIONS -Dproject.env=$PROJECT_ENV -Djetty.https.port=$JETTY_SECURE_PORT -Dproject.home=$APP_HOME -Djetty.logs=$LOG_HOME -Dlog.home=$LOG_HOME -Dlogback.configurationFile=$APP_HOME/conf/logback.xml"
+
+CMD="$JETTY_HOME/bin/jetty.sh $1 $APP_HOME/conf/jetty/jetty.xml  "
+
+#these values be used in jetty's jetty.sh
+export JAVA_HOME JAVA_OPTIONS JETTY_PORT JETTY_HOME TMP TMPDIR JETTY_ARGS JETTY_RUN
+
+
+safemkdir $LOG_HOME
+safemkdir $TEMP_HOME
+safemkdir $JETTY_RUN
+
+if [ "$1" == "start" ]
+  then
+    echo $CMD
+    $CMD 1>>$LOG_HOME/stdout.log 2>>$LOG_HOME/stderr.log
+    sleep 1
+  else
+    $CMD
+fi

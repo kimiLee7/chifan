@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.study.chifan.core.dao.AdministratorDao">
+
+
+  <resultMap id="administratorResultMap" type="org.study.chifan.core.entity.Administrator">
+    <id column="id" property="id"/>
+    <result column="admin_id" property="adminId"/>
+    <result column="email" property="email"/>
+    <result column="phone" property="phone"/>
+    <result column="permission" property="permission"/>
+    <result column="password" property="password"/>
+    <result column="token" property="token"/>
+    <result column="domain_id" property="domainId"/>
+  </resultMap>
+
+  <insert id="add" parameterType="org.study.chifan.core.entity.Administrator" useGeneratedKeys="true"
+      keyProperty="id">
+     INSERT INTO SNC_ADMINISTRATOR (admin_id, email,password,domain_id,permission,phone)
+				VALUES
+				(#{adminId,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{domainId},#{permission,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR})
+	</insert>
+
+  <select id="queryByDomainId" parameterType="int" resultMap="administratorResultMap">
+	  SELECT a.id,a.admin_id,a.password,a.email,a.phone,a.domain_id,a.permission FROM SNC_ADMINISTRATOR a
+    where a.domain_id = #{domainId}
+	</select>
+
+  <select id="queryByDomainIdInOrder" parameterType="AdministratorQuery" resultMap="administratorResultMap">
+	  SELECT id,admin_id,password,email,phone,domain_id,permission FROM SNC_ADMINISTRATOR a
+    where a.domain_id = #{domainId}
+    <if test="adminId !=null">and a.id != #{adminId}</if>
+    <if test="sortColumn != null and sortType != null">
+      ORDER BY admin_id asc
+    </if>
+    <if test="offset > -1 and length >= -1">
+      LIMIT #{offset}, #{length}
+    </if>
+	</select>
+
+  <select id="queryCountByDomainId" parameterType="AdministratorQuery" resultType="int">
+	  SELECT IFNULL(COUNT(1), 0)  FROM SNC_ADMINISTRATOR a
+    where a.domain_id = #{domainId}
+    <if test="adminId !=null">and a.id != #{adminId}</if>
+	</select>
+
+  <delete id="deleteAccounts" parameterType="Map">
+    DELETE FROM SNC_ADMINISTRATOR WHERE
+    id in
+    <foreach item="adminId" index="index" collection="ids"
+        open="(" separator="," close=")">
+      #{adminId}
+    </foreach>
+  </delete>
+
+  <select id="findCountByAdminId"  parameterType="Administrator" resultType="_int">
+		SELECT COUNT(1) FROM SNC_ADMINISTRATOR
+		WHERE admin_id=#{adminId}
+		  and domain_id = #{domainId};
+	</select>
+
+  <select id="findCountByIdAndAdminId"  parameterType="Administrator" resultType="_int">
+		SELECT COUNT(1) FROM SNC_ADMINISTRATOR
+		WHERE admin_id=#{adminId}
+		  and domain_id = #{domainId}
+		  and id = #{id};
+	</select>
+
+  <select id="get" parameterType="long" resultMap="administratorResultMap">
+		SELECT id,admin_id,password,email,phone,domain_id,permission
+		FROM SNC_ADMINISTRATOR
+		WHERE id =#{id}
+	</select>
+
+  <update id="update" parameterType="org.study.chifan.core.entity.Administrator">
+		UPDATE SNC_ADMINISTRATOR
+       SET   <if test="adminId !=null">  admin_id=#{adminId},</if>
+		      <if test="email !=null"> email=#{email},</if>
+		      <if test="permission !=null"> permission=#{permission},</if>
+		      <if test="phone !=null"> phone=#{phone}</if>
+		 WHERE id=#{id}
+	</update>
+
+  <update id="resetPassword" parameterType="org.study.chifan.core.entity.Administrator">
+		UPDATE SNC_ADMINISTRATOR
+       SET password=#{password}
+		 WHERE id=#{id}
+	</update>
+
+  <update id="setToken" parameterType="Map">
+		UPDATE SNC_ADMINISTRATOR
+       SET token=#{token}
+		 WHERE id=#{id}
+	</update>
+
+  <select id="findByAdminId" parameterType="String" resultMap="administratorResultMap">
+	  SELECT a.id,a.admin_id,a.password,a.email,a.phone,a.domain_id,a.permission,a.token FROM SNC_ADMINISTRATOR a
+    where a.admin_id = #{adminId}
+	</select>
+
+
+</mapper>
