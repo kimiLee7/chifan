@@ -19,7 +19,7 @@ public class PagedCollectionTest {
 //        pagedCollection.setTotal(10);
 //        pagedCollection.setPageSize(5);
 //        pagedCollection.setCurrentPageNumber(2);
-        PagedCollection<Administrator> pagedCollection = new PagedCollection<Administrator>(5, 2, 10, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection = new PagedCollection(5, 2, 10, new ArrayList<Shop>());
         pagedCollection.calculatePageInfo();
 
         final int startIndex = pagedCollection.getStartIndex();
@@ -35,7 +35,7 @@ public class PagedCollectionTest {
 //        pagedCollection2.setTotal(10);
 //        pagedCollection2.setPageSize(4);
 //        pagedCollection2.setCurrentPageNumber(1);
-        PagedCollection<Administrator> pagedCollection2 = new PagedCollection<Administrator>(4, 1, 10, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection2 = new PagedCollection<Shop>(4, 1, 10, new ArrayList<Shop>());
         pagedCollection2.calculatePageInfo();
 
         final int startIndex = pagedCollection2.getStartIndex();
@@ -51,7 +51,7 @@ public class PagedCollectionTest {
 //        pagedCollection3.setTotal(17);
 //        pagedCollection3.setPageSize(50);
 //        pagedCollection3.setCurrentPageNumber(1);
-        PagedCollection<Administrator> pagedCollection3 = new PagedCollection<Administrator>(50, 1, 17, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection3 = new PagedCollection<Shop>(50, 1, 17, new ArrayList<Shop>());
         pagedCollection3.calculatePageInfo();
 
         final int startIndex = pagedCollection3.getStartIndex();
@@ -67,7 +67,7 @@ public class PagedCollectionTest {
 //        pagedCollection4.setTotal(4);
 //        pagedCollection4.setPageSize(3);
 //        pagedCollection4.setCurrentPageNumber(2);
-        PagedCollection<Administrator> pagedCollection4 = new PagedCollection<Administrator>(3, 2, 4, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection4 = new PagedCollection<Shop>(3, 2, 4, new ArrayList<Shop>());
         pagedCollection4.calculatePageInfo();
 
         final int startIndex = pagedCollection4.getStartIndex();
@@ -85,7 +85,7 @@ public class PagedCollectionTest {
 //        pagedCollectionZero.setTotal(0);
 //        pagedCollectionZero.setPageSize(5);
 //        pagedCollectionZero.setCurrentPageNumber(1);
-        PagedCollection<Administrator> pagedCollectionZero = new PagedCollection<Administrator>(5, 1, 0, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollectionZero = new PagedCollection<Shop>(5, 1, 0, new ArrayList<Shop>());
         pagedCollectionZero.calculatePageInfo();
 
         final int startIndex = pagedCollectionZero.getStartIndex();
@@ -100,7 +100,7 @@ public class PagedCollectionTest {
 
 //    @Test
     public void testCalculatePageNumbers() {
-        PagedCollection<Administrator> pagedCollection = new PagedCollection<Administrator>(2, 1, 14, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection = new PagedCollection<Shop>(2, 1, 14, new ArrayList<Shop>());
         pagedCollection.calculatePageInfo();
 
         final int startIndex = pagedCollection.getStartIndex();
@@ -119,7 +119,7 @@ public class PagedCollectionTest {
 
 //    @Test
     public void testCalculatePageNumbers2() {
-        PagedCollection<Administrator> pagedCollection = new PagedCollection<Administrator>(2, 1, 16, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection = new PagedCollection<Shop>(2, 1, 16, new ArrayList<Shop>());
         pagedCollection.calculatePageInfo();
 
         final int startIndex = pagedCollection.getStartIndex();
@@ -139,7 +139,7 @@ public class PagedCollectionTest {
 
     @Test
     public void testCalculatePageNumbers3() {
-        PagedCollection<Administrator> pagedCollection = new PagedCollection<Administrator>(2, 1, 5, new ArrayList<Administrator>());
+        PagedCollection<Shop> pagedCollection = new PagedCollection<Shop>(2, 1, 5, new ArrayList<Shop>());
         pagedCollection.calculatePageInfo();
 
         final int startIndex = pagedCollection.getStartIndex();

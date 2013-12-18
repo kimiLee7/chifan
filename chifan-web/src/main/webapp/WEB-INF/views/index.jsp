@@ -640,7 +640,7 @@ function canDeleteDomain() {
 
     return result;
 }
-//canDeleteDomain()---end.
+//canDeleteShop()---end.
 
 function checkQuotaLargerThanSubs() {
     var currentDomainId = $('#current_domain').attr("currentDomainId");

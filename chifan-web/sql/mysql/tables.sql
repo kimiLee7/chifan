@@ -1,7 +1,9 @@
 CREATE TABLE FOOD_SHOP (
    id                   int(11) not null auto_increment,
    name                 national varchar(64) not null,
+   phone              national varchar(64) not null,
    address              national varchar(64) not null,
+   deleted              int(2) default 0,
    PRIMARY KEY (id)
 ) ENGINE=MyISAM;
 

@@ -1,145 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mapper.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.study.chifan.core.dao.DomainDao">
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.study.chifan.core.dao.ShopDao">
 
-  <resultMap id="domainVOResultMap" type="org.study.chifan.core.entity.DomainVO">
-    <id column="id" property="id"/>
-    <result column="name" property="name"/>
-    <result column="full_name" property="fullName"/>
-    <result column="quota" property="quota"/>
-    <result column="description" property="description"/>
-    <result column="parent_id" property="parentId"/>
-      <result column="domain_code" property="domainCode"/>
-  </resultMap>
-
-  <resultMap id="domainResultMap" type="org.study.chifan.core.entity.Domain">
-    <id column="id" property="id"/>
-    <result column="name" property="name"/>
-    <result column="full_name" property="fullName"/>
-    <result column="quota" property="quota"/>
-    <result column="description" property="description"/>
-    <result column="parent_id" property="parentId"/>
-      <result column="domain_code" property="domainCode"/>
-  </resultMap>
-
-    <resultMap id="domainSettingResultMap" type="org.study.chifan.core.entity.DomainSetting">
+    <resultMap id="resultMap" type="org.study.chifan.core.entity.Shop">
         <id column="id" property="id"/>
-        <result column="domain_id" property="domainId"/>
-        <result column="recycle_period" property="recyclePeriod"/>
+        <result column="name" property="name"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
     </resultMap>
 
-  <select id="getDetails" parameterType="int" resultMap="domainVOResultMap">
-		SELECT id,name ,full_name,quota,parent_id,description,domain_code		FROM  SNC_DOMAIN
-		WHERE id=#{domainId}
+    <select id="getDetails" parameterType="int" resultMap="resultMap">
+		SELECT id,name ,phone,address		FROM  FOOD_SHOP
+		WHERE id=#{id}
 		  and deleted=0
 	</select>
 
-    <select id="listAllDomain" resultMap="domainResultMap">
-        SELECT id,name ,full_name,quota,parent_id,description ,domain_code			FROM  SNC_DOMAIN
+    <select id="listAll" resultMap="resultMap">
+        SELECT id,name ,phone,address		FROM  FOOD_SHOP
         WHERE deleted=0
     </select>
 
 
-  <insert id="addDomain" parameterType="org.study.chifan.core.entity.Domain" useGeneratedKeys="true"
-      keyProperty="id">
-    INSERT INTO SNC_DOMAIN (name, full_name,parent_id,quota,description,domain_code)
+    <insert id="add" parameterType="org.study.chifan.core.entity.Shop" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO FOOD_SHOP (name, phone,address)
 				VALUES
-				(#{name},#{fullName,jdbcType=VARCHAR},#{parentId},#{quota},#{description,jdbcType=VARCHAR},#{domainCode})
+				(#{name},#{phone,jdbcType=VARCHAR},#{address})
 	</insert>
 
-    <insert id="addDomainSetting" parameterType="org.study.chifan.core.entity.DomainSetting" useGeneratedKeys="true"
-            keyProperty="id">
-    INSERT INTO SNC_DOMAIN_SETTING (domain_id, recycle_period)
-                VALUES
-                (#{domainId},#{recyclePeriod})
-    </insert>
 
-  <select id="queryDomainByParentId" parameterType="int" resultMap="domainVOResultMap">
-	  select d.id,d.name,d.full_name,d.parent_id,d.quota,d.description ,d.domain_code
-    from SNC_DOMAIN d
-    where parent_id = #{parentId}
-      and deleted=0;
-	</select>
-  <select id="findCountByName"  parameterType="org.study.chifan.core.entity.Domain" resultType="_int">
-		SELECT COUNT(1) FROM SNC_DOMAIN
+    <select id="findCountByName" parameterType="org.study.chifan.core.entity.Shop" resultType="_int">
+		SELECT COUNT(1) FROM FOOD_SHOP
 		WHERE name=#{name}
-		  and parent_id=#{parentId}
 		  and deleted=0;
 	</select>
 
-  <select id="findCountByIdAndName"  parameterType="org.study.chifan.core.entity.Domain" resultType="_int">
-		SELECT COUNT(1) FROM SNC_DOMAIN
+    <select id="findCountByIdAndName" parameterType="org.study.chifan.core.entity.Shop" resultType="_int">
+		SELECT COUNT(1) FROM FOOD_SHOP
 		WHERE name=#{name}
-		  and parent_id=#{parentId}
 		  and id = #{id}
 		  and deleted=0;
 	</select>
 
-    <select id="findCountByParentId"  parameterType="int" resultType="_int">
-		SELECT COUNT(1) FROM SNC_DOMAIN
-		WHERE parent_id=#{parentId}
+
+    <select id="get" parameterType="int" resultMap="resultMap">
+		SELECT id,name ,phone,address			FROM  FOOD_SHOP
+		WHERE id=#{id}
 		  and deleted=0;
 	</select>
 
-    <select id="findUserCountByDomainId"  parameterType="int" resultType="_int">
-		SELECT COUNT(1) FROM SNC_USER
-		WHERE domain_id = #{domainId}
-		  and status!=9;
-	</select>
-
-  <select id="get" parameterType="int" resultMap="domainResultMap">
-		SELECT id,name ,full_name,quota,parent_id,description,domain_code		FROM  SNC_DOMAIN
-		WHERE id=#{domainId}
-		  and deleted=0;
-	</select>
-
-  <update id="update" parameterType="org.study.chifan.core.entity.Domain">
-		UPDATE SNC_DOMAIN
+    <update id="update" parameterType="org.study.chifan.core.entity.Shop">
+		UPDATE FOOD_SHOP
        SET name=#{name},
-           full_name=#{fullName},
-           quota=#{quota},
-           description=#{description} ,
-           domain_code=#{domainCode}
+           phone=#{phone},
+           address=#{address}
 		 WHERE id=#{id}
 	</update>
 
-  <update id="softDelete" parameterType="Map">
-		UPDATE SNC_DOMAIN
-       SET deleted=1
-		 WHERE id in
-     <foreach item="domainId" index="index" collection="ids"
-        open="(" separator="," close=")">
-      #{domainId}
-     </foreach>
-	</update>
-
-  <select id="sumQuotaOfUser" parameterType="int" resultType="long">
-    select IFNULL(sum(temp.quota),0) from
-    ( select IFNULL(q.max_limit/1024,0) as quota from SNC_USER u, SNC_STORAGE_TIER q
-      where u.quota_id = q.id
-        and u.domain_id = #{domainId}
-        and q.domain_id = #{domainId}
-        and q.max_limit != -1 ) temp;
-  </select>
-
-  <select id="sumQuotaOfSubDomain" parameterType="int" resultType="long">
-    select IFNULL(sum(quota),0) from SNC_DOMAIN where parent_id = #{domainId} and deleted = 0;
-  </select>
-
-    <select id="getDomainSetting" parameterType="int" resultMap="domainSettingResultMap">
-		SELECT id, domain_id, recycle_period FROM SNC_DOMAIN_SETTING
-		WHERE domain_id=#{domainId};
-	</select>
-
-    <update id="updateDomainSetting" parameterType="Map">
-        UPDATE SNC_DOMAIN_SETTING
-        <set>
-            <if test="recyclePeriod >0">recycle_period=#{recyclePeriod}</if>
-        </set>
-        WHERE id=#{id};
+    <update id="softDelete" parameterType="Map">
+        UPDATE FOOD_SHOP
+        SET deleted=1
+        WHERE id in
+        <foreach item="id" index="index" collection="ids"
+                 open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
-
 
 
 </mapper>
