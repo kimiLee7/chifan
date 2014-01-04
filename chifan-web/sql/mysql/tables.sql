@@ -18,4 +18,4 @@ create table FOOD_USER
    createTime           datetime,
    modifiedTime         datetime,
    primary key (id)
-);
+) ENGINE=MyISAM;
