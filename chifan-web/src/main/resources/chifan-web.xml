@@ -17,21 +17,14 @@
     <!-- Scans the classpath of this application for @Components to deploy as
       beans -->
     <context:property-placeholder
-            location="classpath:admin-config.properties,classpath:swiftsync_admin_${project.env:local}.properties"/>
+            location="classpath:chifan_web_config.properties,classpath:chifan_web_${project.env:local}.properties"/>
 
-    <context:component-scan base-package="org.study.chifan.web">
-        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="regex" expression="cn.com.conversant.swiftsync.service.impl.AdministratorServiceImpl"/>-->
+    <context:component-scan base-package="org.study.chifan.core">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="regex" expression="cn.com.conversant.swiftsync.service.impl.AdministratorServiceImpl"/>-->
     </context:component-scan>
 
-    <mvc:annotation-driven>
-        <mvc:argument-resolvers>
-            <bean class="org.study.chifan.core.annotation.AdminRequiredResolver"></bean>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
-
-
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+      <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
         <property name="mediaTypes">
             <map>
                 <entry key="json" value="application/json"/>
@@ -102,12 +95,6 @@
         <property name="cacheSeconds" value="30"/>
     </bean>
 
-    <bean class="org.study.chifan.core.utils.ConfigurationProperties">
-        <property name="configurer" ref="configuration"/>
-    </bean>
-
     <task:annotation-driven/>
-    <bean id="recycleDeletedUserScheduler"
-          class="org.study.chifan.core.schedule.RecycleDeletedUserScheduler"/>
 
 </beans>
