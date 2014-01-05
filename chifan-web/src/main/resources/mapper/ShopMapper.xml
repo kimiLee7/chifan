@@ -8,24 +8,23 @@
         <result column="name" property="name"/>
         <result column="phone" property="phone"/>
         <result column="address" property="address"/>
+        <result column="logo_src" property="logoSrc"/>
     </resultMap>
 
-    <select id="getDetails" parameterType="int" resultMap="resultMap">
-		SELECT id,name ,phone,address		FROM  FOOD_SHOP
-		WHERE id=#{id}
-		  and deleted=0
-	</select>
-
     <select id="listAll" resultMap="resultMap">
-        SELECT id,name ,phone,address		FROM  FOOD_SHOP
-        WHERE deleted=0
+        SELECT  id,name ,phone,address,logo_src	FROM  FOOD_SHOP
+        WHERE  deleted=0
     </select>
 
 
+    <select id="get" parameterType="int" resultMap="resultMap">
+		SELECT  id,name ,phone,address,logo_src	FROM  FOOD_SHOP
+		WHERE  id=#{id} and deleted=0;
+	</select>
+
     <insert id="add" parameterType="org.study.chifan.core.entity.Shop" useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO FOOD_SHOP (name, phone,address)
-				VALUES
-				(#{name},#{phone,jdbcType=VARCHAR},#{address})
+    INSERT INTO  FOOD_SHOP (name, phone,address,logo_src)
+	VALUES		 (#{name},#{phone,jdbcType=VARCHAR},#{address},#{logoSrc})
 	</insert>
 
 
@@ -43,11 +42,6 @@
 	</select>
 
 
-    <select id="get" parameterType="int" resultMap="resultMap">
-		SELECT id,name ,phone,address			FROM  FOOD_SHOP
-		WHERE id=#{id}
-		  and deleted=0;
-	</select>
 
     <update id="update" parameterType="org.study.chifan.core.entity.Shop">
 		UPDATE FOOD_SHOP

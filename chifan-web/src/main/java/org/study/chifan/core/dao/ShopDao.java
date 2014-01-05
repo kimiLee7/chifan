@@ -8,17 +8,16 @@ import java.util.List;
 
 @DataAccessRepository
 public interface ShopDao {
-    void add(Shop shop);
 
     List<Shop> listAll();
 
-    Shop getDetails(@Param("id") int id);
+    Shop get(@Param("id") int id);
+
+    void add(Shop shop);
 
     int findCountByName(Shop shop);
 
     int findCountByIdAndName(Shop shop);
-
-    Shop get(@Param("id") int id);
 
     void update(Shop shop);
 

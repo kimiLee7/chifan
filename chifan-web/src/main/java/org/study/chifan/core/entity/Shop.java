@@ -21,6 +21,8 @@ public class Shop implements Serializable {
     @NotNull
     private String address;
 
+    private String logoSrc;
+
     private int deleted;
 
     public int getId() {
@@ -55,9 +57,12 @@ public class Shop implements Serializable {
         this.address = address;
     }
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public String getLogoSrc() {
+        return logoSrc;
+    }
+
+    public void setLogoSrc(String logoSrc) {
+        this.logoSrc = logoSrc;
     }
 
     public int getDeleted() {
@@ -68,13 +73,13 @@ public class Shop implements Serializable {
         this.deleted = deleted;
     }
 
-    /*@Override
+    @Override
     public String toString() {
-        return "Domain{" +
+        return "Shop{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 '}';
-    }*/
+    }
 }

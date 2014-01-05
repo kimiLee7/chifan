@@ -23,14 +23,12 @@ public class ShopServiceImpl implements ShopService {
     private ShopDao shopDao;
 
     @Transactional
-    public void addShop(Shop shop) {
-
+    public void add(Shop shop) {
         shopDao.update(shop);
-
     }
 
     public Shop get(int id) {
-        return shopDao.getDetails(id);
+        return shopDao.get(id);
     }
 
     public boolean ifShopNameAvailable(int id, String name, int currentId) {
@@ -59,8 +57,6 @@ public class ShopServiceImpl implements ShopService {
 
     @Transactional
     public void edit(Shop shop) {
-
-
         shopDao.update(shop);
     }
 
@@ -74,9 +70,7 @@ public class ShopServiceImpl implements ShopService {
     public List<Shop> listByIds(List<Map<String, Object>> ids) {
         List<Shop> list = new ArrayList();
         for (Map id : ids) {
-
-            list.add(this.details(Integer.valueOf((String) id.get("id"))));
-
+            list.add(this.get(Integer.valueOf((String) id.get("id"))));
         }
         return list;
     }

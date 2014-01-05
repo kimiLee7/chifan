@@ -15,6 +15,7 @@ public class IndexController {
     public String list() {
         logger.debug("retrieve shop list.");
 
-        return "forward:/shop/list";
+        return "index";
+//        return "forward:/shop/list";
     }
 }

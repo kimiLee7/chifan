@@ -7,20 +7,18 @@ import java.util.Map;
 
 public interface ShopService {
 
-    void addShop(Shop shop);
+    List<Shop> listAll();
 
     Shop get(int id);
 
-    boolean ifShopNameAvailable(int id, String name, int currentShopId);
+    void add(Shop shop);
 
-    Shop details(int id);
+    boolean ifShopNameAvailable(int id, String name, int currentShopId);
 
     void edit(Shop shop);
 
     void delete(List<Integer> ids);
 
     List<Shop> listByIds(List<Map<String, Object>> ids);
-
-    List<Shop> listAll();
 
 }
