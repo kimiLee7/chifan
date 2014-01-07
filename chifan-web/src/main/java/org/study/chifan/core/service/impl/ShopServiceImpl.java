@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.study.chifan.core.dao.ShopDao;
+import org.study.chifan.core.entity.Category;
+import org.study.chifan.core.entity.Product;
 import org.study.chifan.core.entity.Shop;
 import org.study.chifan.core.service.ShopService;
+import org.study.chifan.core.service.TokenGenerator;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,14 +21,17 @@ import java.util.Map;
 @Service
 public class ShopServiceImpl implements ShopService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ShopDao shopDao;
 
+    @Autowired
+    private TokenGenerator tokenGenerator;
+
     @Transactional
     public void add(Shop shop) {
-        shopDao.update(shop);
+        shopDao.add(shop);
     }
 
     public Shop get(int id) {
@@ -80,4 +87,34 @@ public class ShopServiceImpl implements ShopService {
         return shopDao.listAll();
     }
 
+    @Override
+    public List<Category> listAllProducts(long shopId) {
+
+        return generateProducts();
+    }
+
+    private ArrayList<Category> generateProducts() {
+        final ArrayList<Category> categories = new ArrayList<Category>();
+
+        categories.add(generateProductsOfOneCategory("招牌套餐", 4));
+        categories.add(generateProductsOfOneCategory("经典小炒", 8));
+        categories.add(generateProductsOfOneCategory("盖浇饭", 12));
+
+        return categories;
+    }
+
+    private Category generateProductsOfOneCategory(String categoryName, int productNum) {
+
+        final Category category = new Category(categoryName);
+        category.setId(tokenGenerator.generateInt());
+
+        Product product = new Product("红烧狮子头2只+炒时蔬+菜饭", new BigDecimal(2000), category);
+        product.setId(tokenGenerator.generateInt());
+
+        for (int i = 0; i < productNum; i++) {
+            category.putInProduct(product);
+        }
+
+        return category;
+    }
 }

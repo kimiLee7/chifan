@@ -2,23 +2,25 @@ package org.study.chifan.core.entity;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-public class Shop implements Serializable {
+public class Product implements Serializable {
 
     private long id;
 
-    @NotNull
-    private String phone;
-
-    @NotNull
     private String name;
 
-    @NotNull
-    private String address;
+    private BigDecimal price;
 
-    private String logoSrc;
+    private Category category;
 
     private int deleted;
+
+    public Product(String name, BigDecimal price, Category category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
 
     public long getId() {
         return id;
@@ -26,14 +28,6 @@ public class Shop implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getName() {
@@ -44,20 +38,20 @@ public class Shop implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public String getLogoSrc() {
-        return logoSrc;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setLogoSrc(String logoSrc) {
-        this.logoSrc = logoSrc;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public int getDeleted() {
@@ -70,11 +64,11 @@ public class Shop implements Serializable {
 
     @Override
     public String toString() {
-        return "Shop{" +
+        return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
+                ", price='" + price + '\'' +
+                ", deleted='" + deleted + '\'' +
                 '}';
     }
 }

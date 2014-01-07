@@ -9,7 +9,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10  ">
 
-            <c:forEach items="${records}" var="record">
+            <c:forEach items="${records}" var="category">
                 <div class="media bg_w p10">
 
                     <a href="shop-detail.html" class="pull-left">
@@ -18,11 +18,11 @@
                     </a>
 
                     <div class="media-body">
-                        <h4 class="media-heading"><a onclick="getShopMenu('${record.id}')">${record.name}</a></h4>
+                        <h4 class="media-heading"><a onclick="getShopMenu('${category.id}')">${category.name}</a></h4>
                         <span class="pull-right"><button class="btn btn-warning" type="button">集体点餐</button></span>
 
                         <p>
-                        <address>地址: ${record.address} <span class="tel blue">${record.phone}</span></address>
+                        <address>地址: ${category.address} <span class="tel blue">${category.phone}</span></address>
                         </p>
                         <p>
                             <small class="label label-warning">本帮菜</small>

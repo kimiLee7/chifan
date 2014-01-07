@@ -14,8 +14,12 @@ public class TokenGeneratorImpl implements TokenGenerator {
 
     private Random random = new Random();
 
-    public String generate() {
+    public String generateString() {
         int i = random.nextInt(RANDOM_NUMBER_BOUND);
         return Strings.padStart(String.valueOf(i), 6, '0');
+    }
+
+    public int generateInt() {
+        return random.nextInt(RANDOM_NUMBER_BOUND);
     }
 }

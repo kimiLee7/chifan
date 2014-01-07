@@ -32,7 +32,8 @@ public class ShopController {
     public String menu(@PathVariable Integer shopId, ModelMap model) {
         logger.debug("retrieve shop menu.");
 
-        model.addAttribute("records", shopService.listAll());
+        model.addAttribute("shop", shopService.get(shopId));
+        model.addAttribute("categories", shopService.listAllProducts(shopId));
 
         return "shop/menu";
     }
