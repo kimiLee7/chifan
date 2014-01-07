@@ -1,6 +1,7 @@
 package org.study.chifan.core.service;
 
 import org.study.chifan.core.entity.Category;
+import org.study.chifan.core.entity.Order;
 import org.study.chifan.core.entity.Shop;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface ShopService {
     List<Shop> listByIds(List<Map<String, Object>> ids);
 
     List<Category> listAllProducts(long shopId);
+
+    void submitOrder(Order order);
 }

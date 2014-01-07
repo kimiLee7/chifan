@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.study.chifan.core.dao.ShopDao;
 import org.study.chifan.core.entity.Category;
+import org.study.chifan.core.entity.Order;
 import org.study.chifan.core.entity.Product;
 import org.study.chifan.core.entity.Shop;
 import org.study.chifan.core.service.ShopService;
@@ -91,6 +92,11 @@ public class ShopServiceImpl implements ShopService {
     public List<Category> listAllProducts(long shopId) {
 
         return generateProducts();
+    }
+
+    @Override
+    public void submitOrder(Order order) {
+        //todo
     }
 
     private ArrayList<Category> generateProducts() {
