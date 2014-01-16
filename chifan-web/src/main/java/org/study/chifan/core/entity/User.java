@@ -3,7 +3,7 @@ package org.study.chifan.core.entity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class Shop implements Serializable {
+public class User implements Serializable {
 
     private long id;
 
@@ -15,8 +15,6 @@ public class Shop implements Serializable {
 
     @NotNull
     private String address;
-
-    private String logoSrc;
 
     private int deleted;
 
@@ -50,14 +48,6 @@ public class Shop implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getLogoSrc() {
-        return logoSrc;
-    }
-
-    public void setLogoSrc(String logoSrc) {
-        this.logoSrc = logoSrc;
     }
 
     public int getDeleted() {

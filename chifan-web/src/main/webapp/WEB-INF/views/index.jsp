@@ -16,8 +16,6 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap-theme.css' />"/>
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/common.css?_ts=20140101901' />"/>
 
-    <script src="<c:url value='/resources/js/bootstrap.js' /> "></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -68,6 +66,9 @@
 <!--end container-->
 
 <div id="sub_content_div"></div>
+
+<script src="<c:url value='/resources/js/bootstrap.js' /> "></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
      function getShopList() {

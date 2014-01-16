@@ -1,8 +1,3 @@
-/**
- * Copyright (c) 2012 Conversant Solutions. All rights reserved.
- *
- * Created on 12/13/12.
- */
 package org.study.chifan.core.model;
 
 import org.apache.commons.lang3.StringUtils;

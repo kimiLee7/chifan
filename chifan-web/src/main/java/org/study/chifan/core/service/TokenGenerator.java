@@ -1,5 +1,7 @@
 package org.study.chifan.core.service;
 
 public interface TokenGenerator {
-    String generate();
+    String generateString();
+
+    int generateInt();
 }
